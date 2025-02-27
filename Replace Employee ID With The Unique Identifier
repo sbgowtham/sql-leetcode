@@ -1,0 +1,25 @@
+CREATE TABLE Employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+INSERT INTO Employees (id, name) VALUES 
+(1, 'Alice'),
+(2, 'Bob'),
+(3, 'Charlie'),
+(4, 'David');
+CREATE TABLE EmployeeUNI (
+    id INT,
+    unique_id INT,
+    PRIMARY KEY (id, unique_id)
+);
+INSERT INTO EmployeeUNI (id, unique_id) VALUES
+(1, 101),
+(2, 102);
+
+
+
+
+select eu.unique_id , e.name
+from Employees e 
+left join EmployeeUNI eu 
+on e.id = eu.id ;
