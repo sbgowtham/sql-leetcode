@@ -1,0 +1,35 @@
+
+CREATE TABLE Product (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(255)
+);
+
+INSERT INTO Product (product_id, product_name) VALUES
+(1, 'Laptop'),
+(2, 'Phone'),
+(3, 'Tablet');
+
+CREATE TABLE Sales (
+    sale_id INT,
+    product_id INT,
+    year INT,
+    quantity INT,
+    price INT,
+    PRIMARY KEY (sale_id, year),
+    FOREIGN KEY (product_id) REFERENCES Product(product_id)
+);
+
+INSERT INTO Sales (sale_id, product_id, year, quantity, price) VALUES
+(101, 1, 2020, 10, 800),
+(102, 2, 2021, 5, 600),
+(103, 3, 2020, 8, 400),
+(104, 1, 2021, 3, 750),
+(105, 2, 2020, 7, 650);
+
+
+
+
+select p.product_name , s.year , s.price
+from product p 
+join sales s
+on p.product_id = s.product_id
