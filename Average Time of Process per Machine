@@ -1,0 +1,44 @@
+-- Create the Activity table
+CREATE TABLE Activity (
+    machine_id INT,
+    process_id INT,
+    activity_type ENUM('start', 'end'),
+    timestamp FLOAT,
+    PRIMARY KEY (machine_id, process_id, activity_type)
+);
+
+-- Insert sample data
+INSERT INTO Activity (machine_id, process_id, activity_type, timestamp)
+VALUES
+(0, 0, 'start', 0.712),
+(0, 0, 'end', 1.520),
+(0, 1, 'start', 3.140),
+(0, 1, 'end', 4.120),
+(1, 0, 'start', 0.550),
+(1, 0, 'end', 1.550),
+(1, 1, 'start', 0.430),
+(1, 1, 'end', 1.420),
+(2, 0, 'start', 4.100),
+(2, 0, 'end', 4.512),
+(2, 1, 'start', 2.500),
+(2, 1, 'end', 5.000);
+
+
+
+
+with processing_time as (
+select a.machine_id , a.process_id , (b.timestamp - a.timestamp) as processing_time
+
+from  Activity a 
+join Activity b 
+
+on a.machine_id = b.machine_id
+and a.process_id = b.process_id 
+and a.activity_type ='start'
+and b.activity_type='end' )
+
+select  machine_id , ROUND(AVG(processing_time),3 ) as processing_time
+
+from processing_time
+group by machine_id
+
