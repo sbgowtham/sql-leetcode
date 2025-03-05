@@ -1,0 +1,34 @@
+
+-- Create Employee Table
+CREATE TABLE Employee (
+    empId INT PRIMARY KEY,
+    name VARCHAR(50),
+    supervisor INT,
+    salary INT
+);
+
+-- Create Bonus Table
+CREATE TABLE Bonus (
+    empId INT PRIMARY KEY,
+    bonus INT,
+    FOREIGN KEY (empId) REFERENCES Employee(empId)
+);
+-- Insert data into Employee table
+INSERT INTO Employee (empId, name, supervisor, salary) VALUES
+(3, 'Brad', NULL, 4000),
+(1, 'John', 3, 1000),
+(2, 'Dan', 3, 2000),
+(4, 'Thomas', 3, 4000);
+
+-- Insert data into Bonus table
+INSERT INTO Bonus (empId, bonus) VALUES
+(2, 500),
+(4, 2000);
+
+
+
+select e.name , b.bonus
+from Employee e
+left join bonus b
+on e.empid = b.empid 
+where b.bonus < 1000 or  b.bonus is null
